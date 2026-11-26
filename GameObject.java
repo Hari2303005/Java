@@ -1,49 +1,60 @@
-package Projekat;
+package projekat3;
 
+public abstract class GameObject {
+    protected int x;
+    protected int y;
+    protected Collidable collider;
 
+    public GameObject(int x, int y, Collidable collider) {
+        if (collider == null) {
+            throw new IllegalArgumentException("Kolajder ne smije biti null.");
+        }
+        
+        this.x = x;
+        this.y = y;
+        this.collider = collider;
+    }
 
-public class GameObject {
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	public GameObject(int x, int y, int width, int height) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
-	public int getX() {
-		return x;
-	}
-	public void setX(int x) {
-		this.x = x;
-	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
-	}
-	public int getWidth() {
-		return width;
-	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	public int getHeight() {
-		return height;
-	}
-	public void setHeight(int height) {
-		this.height = height;
-	}
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Collidable getCollider() {
+        return collider;
+    }
+
+    public void setCollider(Collidable collider) {
+        if (collider == null) {
+            throw new IllegalArgumentException("Kolajder ne smije biti null.");
+        }
+        this.collider = collider;
+    }
+
+    public abstract String getDisplayName();
+
+    public boolean intersects(GameObject other) {
+        if (other == null || this.collider == null || other.collider == null) {
+            return false;
+        }
+        return this.collider.intersects(other.collider, this.x, this.y, other.x, other.y);
+    }
+
     
-	public String toString() {
-		return "GameObject @ + (" + this.x + "," + this.y + ") " + this.width + "x" + this.height;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
 	}
-	
-	
-	
-	
+
 }
